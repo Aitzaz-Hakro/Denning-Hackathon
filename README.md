@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Denning Hackathon
 
-## Getting Started
+A web app starter built with Next.js 16, Tailwind CSS 4, and Supabase.
 
-First, run the development server:
+## What's already set up
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Next.js App Router with TypeScript
+- Tailwind CSS
+- Supabase browser + server clients (SSR-ready, so sessions survive page refreshes)
+- `src/proxy.ts` refreshes the Supabase session on every request (Next.js 16 renamed `middleware.ts` to `proxy.ts`)
+
+## Setup
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Create a free project at [supabase.com/dashboard](https://supabase.com/dashboard).
+
+3. Copy the env file and fill in your project details:
+
+   ```bash
+   copy .env.example .env.local
+   ```
+
+   Open `.env.local` and paste the **Project URL** and **Publishable key** from your Supabase project's **Connect** dialog (or **Settings → API keys**).
+
+4. Start the dev server:
+
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000).
+
+## Using Supabase
+
+```ts
+// Client Component
+import { createClient } from "@/lib/supabase/client";
+const supabase = createClient();
+
+// Server Component, Server Action, or Route Handler
+import { createClient } from "@/lib/supabase/server";
+const supabase = await createClient();
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To check who is signed in on the server, use `getClaims()` — it verifies the token. Avoid trusting `getSession()` on the server.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```ts
+const { data } = await supabase.auth.getClaims();
+const user = data?.claims;
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run start` — run the production build
+- `npm run lint` — run ESLint
 
-To learn more about Next.js, take a look at the following resources:
+## Deploying
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Push to GitHub and import the repo on [Vercel](https://vercel.com/new). Add the same two `NEXT_PUBLIC_SUPABASE_*` variables in the Vercel project settings.
