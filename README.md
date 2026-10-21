@@ -9,6 +9,16 @@ A web app starter built with Next.js 16, Tailwind CSS 4, and Supabase.
 - Supabase browser + server clients (SSR-ready, so sessions survive page refreshes)
 - `src/proxy.ts` refreshes the Supabase session on every request (Next.js 16 renamed `middleware.ts` to `proxy.ts`)
 
+## Docs
+
+Read these before changing code:
+
+- [Foundation](docs/FOUNDATION.md) — locked stack, decisions, and banned tools
+- [Architecture](docs/ARCHITECTURE.md) — data flow, clients, auth, and folder map
+- [Database](docs/DATABASE.md) — schema, RLS rules, and migrations
+- [Workflow](docs/WORKFLOW.md) — day-of sequence, AI rules, and Definition of Done
+- [Hackathon Brief](docs/HACKATHON-BRIEF.md) — fill this in on the day
+
 ## Setup
 
 1. Install dependencies:
