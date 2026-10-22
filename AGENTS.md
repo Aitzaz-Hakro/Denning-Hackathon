@@ -12,6 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Read these before editing code:
 
+- `docs/WORKFLOW.md` — project intake, scope, conflicts, verification, and deliverables
 - `docs/FOUNDATION.md` — locked stack and decisions
 - `docs/ARCHITECTURE.md` — system design and Supabase client usage
 - `docs/DATABASE.md` — schema, RLS, and migration rules
@@ -23,6 +24,9 @@ Do not propose or switch the locked stack. No ORMs, NextAuth/Clerk/Firebase, Red
 
 Hard rules:
 
+- Follow `docs/WORKFLOW.md` for intake, scope, conflicts, verification, and the README/video deliverables.
+- Do not import the `/inspiration1-3` prototype routes into the real app. They are disposable design studies.
+- Do not push to the remote unless the user explicitly asks.
 - RLS stays enabled on every table. Never disable it to make a query work.
 - Every new table ships with explicit policies in the same migration.
 - Never expose the Supabase service-role key to the browser. Never use `NEXT_PUBLIC_` for secrets.
@@ -39,6 +43,7 @@ Hard rules:
 
 Stop and ask when:
 
+- The project description is thin, or the brief has not been signed off.
 - A request conflicts with a locked decision.
 - A change needs a new table, a schema change, or a new dependency.
 - Auth, `src/proxy.ts`, the Supabase clients, or the OpenAI/Groq integration need to change.

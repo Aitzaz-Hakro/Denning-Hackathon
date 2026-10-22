@@ -2,6 +2,8 @@
 
 Fill this in on the day, before writing code. This is the only place product scope changes are recorded.
 
+**Status:** not started — mark as **Draft** until the team signs off, then **Locked**.
+
 ## Problem
 
 What problem are we solving? Who has it?
@@ -88,3 +90,12 @@ What demo data do we need?
 If we run out of room, these features are cut first:
 
 -
+
+## Decisions log
+
+Record every approved conflict, scope change, and integration choice here so a new
+session does not re-litigate it.
+
+| Date | Decision | Why | Approved by |
+| --- | --- | --- | --- |
+|  |  |  |  |
