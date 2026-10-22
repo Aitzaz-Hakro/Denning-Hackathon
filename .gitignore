@@ -26,7 +26,11 @@ desktop.ini
 *.pem
 
 # local agent state
-.commandcode/
+.commandcode/*
+!.commandcode/design/
+!.commandcode/design/brief.md
+.agents/
+.taste-skill/
 
 # debug
 npm-debug.log*
