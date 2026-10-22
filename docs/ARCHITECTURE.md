@@ -11,7 +11,8 @@ src/proxy.ts            refreshes the Supabase session on every request
   v
 Next.js server          Server Components, Server Actions, Route Handlers
   |            \
-  |             \--> OpenAI API (key stays on the server)
+  |             \--> OpenAI API (chat, key stays on the server)
+  |             \--> Groq Whisper (STT, key stays on the server)
   v
 Supabase Postgres       Row Level Security enforced
 ```
@@ -75,22 +76,25 @@ Next.js docs warn that Server Actions are POST requests to a page route, so a pr
 
 ## AI integration
 
-The event requires AI. We use OpenAI (Option A): the app calls the OpenAI API from the server. We do not host models or run local inference during the event.
+The event requires AI. We use Option A for chat: the app calls OpenAI from the server. Habib provides the API key; the app calls OpenAI directly. The chat contract is in `docs/ui/designs/contract.md`.
+
+Voice input uses Groq's OpenAI-compatible audio endpoint with `whisper-large-v3`. The browser sends a short clip to `POST /api/transcribe`; the server calls Groq with `GROQ_API_KEY` and returns `{ text }`. The transcript goes into the composer for editing and is never auto-sent.
 
 ```
-Browser -> Server Action or Route Handler -> OpenAI API
+Browser -> Server Action or Route Handler -> OpenAI API (chat)
+Browser -> POST /api/transcribe -> Groq Whisper (STT)
 ```
 
 Rules:
 
-- Call OpenAI only from server code: a Route Handler under `src/app/api/` or a Server Action.
-- Read the key from `process.env.OPENAI_API_KEY`. Never prefix it with `NEXT_PUBLIC_`.
-- The official `openai` SDK is the only approved AI dependency.
-- Validate and limit input before calling the provider; long prompts burn quota.
+- Call OpenAI and Groq only from server code.
+- Read `OPENAI_API_KEY`, `OPENAI_MODEL`, and `GROQ_API_KEY` in server code. Never prefix any with `NEXT_PUBLIC_`.
+- Use the official `openai` SDK for chat. Use `fetch` for Groq's OpenAI-compatible audio endpoint.
+- Validate and limit input before calling a provider; long prompts and long clips burn quota.
 - Handle timeouts and provider errors, and return a readable message.
-- Use one model and one integration style for the event.
+- Use one chat model and one STT model (`whisper-large-v3`).
 - For streaming responses, use a Route Handler with a `ReadableStream`.
-- Do not add a second AI SDK because a tutorial uses it.
+- Do not add a third AI provider or another SDK because a tutorial uses it.
 
 ## Folder map
 
@@ -117,6 +121,8 @@ docs/                  the docs you are reading
 | `NEXT_PUBLIC_SUPABASE_URL` | browser + server | No |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | browser + server | No |
 | `OPENAI_API_KEY` | server only | Yes |
+| `OPENAI_MODEL` | server only | No |
+| `GROQ_API_KEY` | server only | Yes |
 | `SUPABASE_SERVICE_ROLE_KEY` | server-only scripts, if ever needed | Yes |
 
 Rules:
@@ -125,6 +131,7 @@ Rules:
 - Anything with `NEXT_PUBLIC_` is visible in the browser. Never put a secret there.
 - The publishable key is safe in client code; RLS still decides what data the user can see.
 - The OpenAI key belongs in `OPENAI_API_KEY` and is read only in server code.
+- The Groq key belongs in `GROQ_API_KEY` and is read only in the transcription route.
 
 ## Next.js 16 gotchas
 

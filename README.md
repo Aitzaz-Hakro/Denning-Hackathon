@@ -18,7 +18,7 @@ _Add the project title and a two-sentence description on the day._
 
 ## AI usage
 
-_Describe the OpenAI model and what it does._ AI calls run in server code and read `OPENAI_API_KEY` from the environment.
+_Describe the OpenAI model and what it does._ AI calls run in server code and read `OPENAI_API_KEY` and `OPENAI_MODEL` from the environment. Optional voice input uses Groq `whisper-large-v3` through `GROQ_API_KEY`.
 
 ## Docs
 
@@ -31,6 +31,8 @@ Read these before changing code:
 - [Workflow](docs/WORKFLOW.md) — day-of sequence, AI rules, and Definition of Done
 - [Submission](docs/SUBMISSION.md) — organizer requirements and the submission checklist
 - [Design brief](.commandcode/design/brief.md) — visual direction and component rules
+- [Chat UI](docs/ui/designs/chat-ui.md) — chat composition, states, and interaction rules
+- [AI contract](docs/ui/designs/contract.md) — request, streaming, errors, and mock mode
 - [Hackathon Brief](docs/HACKATHON-BRIEF.md) — fill this in on the day
 
 ## Setup
@@ -49,7 +51,7 @@ Read these before changing code:
    copy .env.example .env.local
    ```
 
-   Open `.env.local` and paste the **Project URL** and **Publishable key** from your Supabase project's **Connect** dialog (or **Settings → API keys**). Add `OPENAI_API_KEY` — it is server-only and must never use the `NEXT_PUBLIC_` prefix.
+   Open `.env.local` and paste the **Project URL** and **Publishable key** from your Supabase project's **Connect** dialog (or **Settings → API keys**). Add `OPENAI_API_KEY`, `OPENAI_MODEL`, and `GROQ_API_KEY` — all are server-only and must never use the `NEXT_PUBLIC_` prefix.
 
 4. Enable Google sign-in:
    - In Google Cloud Console, add `https://<project-ref>.supabase.co/auth/v1/callback` as the authorized redirect URI.
@@ -102,4 +104,4 @@ If Supabase email confirmation is on, signup asks the user to check their inbox.
 
 ## Deploying
 
-Push to GitHub and import the repo on [Vercel](https://vercel.com/new). Add `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, and `OPENAI_API_KEY` in the Vercel project settings.
+Push to GitHub and import the repo on [Vercel](https://vercel.com/new). Add `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `OPENAI_API_KEY`, `OPENAI_MODEL`, and `GROQ_API_KEY` in the Vercel project settings.

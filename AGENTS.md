@@ -30,8 +30,9 @@ Hard rules:
 - Never edit `auth.users` or an already-applied migration.
 - Every schema change is a date-stamped migration in `supabase/migrations/`, pushed to Supabase with `npx supabase db push`. No dashboard-only schema edits.
 - Google OAuth is configured through Supabase. The Google authorized redirect URI is the Supabase callback, never the app URL.
-- AI calls run only in Server Actions or Route Handlers. The key lives in `OPENAI_API_KEY`, never `NEXT_PUBLIC_*`.
-- One AI provider (OpenAI) for the event. No local model hosting or a second AI SDK.
+- AI calls run only in Server Actions or Route Handlers. `OPENAI_API_KEY` and `GROQ_API_KEY` stay server-side, never `NEXT_PUBLIC_*`.
+- Approved AI providers: OpenAI for chat and Groq `whisper-large-v3` for speech-to-text. No third provider or local model hosting.
+- Voice transcripts go into the composer and are never auto-sent.
 - Do not add dependencies without updating `docs/FOUNDATION.md` and getting approval.
 - Verify with `npm run lint`, `npx tsc --noEmit`, and `npm run build`.
 
@@ -39,6 +40,6 @@ Stop and ask when:
 
 - A request conflicts with a locked decision.
 - A change needs a new table, a schema change, or a new dependency.
-- Auth, `src/proxy.ts`, the Supabase clients, or the OpenAI integration need to change.
+- Auth, `src/proxy.ts`, the Supabase clients, or the OpenAI/Groq integration need to change.
 - Something requires disabling RLS or using the service-role key.
 - A change would break deployment, the README, or the submission checklist.

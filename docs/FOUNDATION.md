@@ -26,7 +26,8 @@ The starter and these docs are preparation. Product features must be written dur
 | Language | TypeScript (strict) | 5.x | Catches errors before the demo |
 | Styling | Tailwind CSS | 4.x | Fast layout without extra CSS files |
 | Backend | Supabase (Postgres, Auth, Storage) | supabase-js 2.118.0, @supabase/ssr 0.12.7 | Database, auth, and file storage in one service |
-| AI | OpenAI API, called from the server | Official `openai` SDK when the AI slice starts | Chosen provider; required by the event |
+| AI chat | OpenAI API, called from the server | Official `openai` SDK when the chat route starts | Key provided by Habib; required by the event |
+| Speech-to-text | Groq Whisper `whisper-large-v3`, called from the server | Groq API via `fetch` | Optional voice input; free tier; key in `GROQ_API_KEY` |
 | Package manager | npm | 11.x | Already configured |
 | Hosting | Vercel | — | Deploys Next.js with no setup |
 
@@ -42,8 +43,9 @@ The starter and these docs are preparation. Product features must be written dur
 8. **TypeScript strict, no `any`.** If `any` is unavoidable, leave a comment explaining why.
 9. **Cache Components off.** `cacheComponents` stays out of `next.config.ts`; it forces Suspense boundaries around dynamic Supabase data and slows the event down.
 10. **AI is required, Option A.** The app calls OpenAI from server code, with the app hosted on Vercel. Do not host models or run local inference during the event.
-11. **AI keys stay server-only.** The key lives in `OPENAI_API_KEY`; only Server Actions and Route Handlers call OpenAI. Never use a `NEXT_PUBLIC_*` variable for it.
+11. **AI keys stay server-only.** `OPENAI_API_KEY` and `GROQ_API_KEY` live on the server; only Server Actions and Route Handlers call the providers. Never use a `NEXT_PUBLIC_*` variable for them.
 12. **Submission is part of Done.** A public repo, a deployed URL, a complete README, and a 3-5 minute demo video are required, not optional.
+13. **Voice is optional.** Speech-to-text uses Groq `whisper-large-v3`; the transcript goes into the editable composer and is never auto-sent. The text input always remains available.
 
 ## Banned
 
@@ -56,10 +58,10 @@ The starter and these docs are preparation. Product features must be written dur
 - Supabase service-role key in any `NEXT_PUBLIC_*` variable or client component
 - Editing `auth.users` directly
 - Editing the schema in the Supabase dashboard without a matching migration file
-- Calling OpenAI directly from a Client Component
-- OpenAI keys in code, in `NEXT_PUBLIC_*` variables, or committed to the repo
+- Calling OpenAI or Groq directly from a Client Component
+- OpenAI or Groq keys in code, in `NEXT_PUBLIC_*` variables, or committed to the repo
 - Local model hosting (Ollama, RunPod, Hugging Face Endpoints) during the event
-- A second AI provider or SDK during the event
+- A third AI provider; the approved pair is OpenAI for chat and Groq for speech-to-text
 
 ## Dependencies
 
@@ -69,7 +71,7 @@ Only install what is already in `package.json`. Adding anything else requires:
 2. Adding it to this document with one line explaining why.
 3. Installing it.
 
-Pre-approved for the AI slice: `openai` (the official SDK). Install it when the AI feature starts.
+Pre-approved for the chat slice: `openai` (the official SDK). Groq STT uses `fetch`; no Groq SDK is needed.
 
 AI agents must ask before installing anything else.
 

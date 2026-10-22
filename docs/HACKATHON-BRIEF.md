@@ -27,8 +27,9 @@ Who is the primary user? Who is not?
 ## AI use
 
 - Provider and model: OpenAI / <model>
+- Speech-to-text: Groq / `whisper-large-v3` (optional)
 - What the AI does:
-- Key env var: `OPENAI_API_KEY`
+- Key env vars: `OPENAI_API_KEY`, `OPENAI_MODEL`, `GROQ_API_KEY`
 - Fallback if the API fails:
 
 ## Auth
