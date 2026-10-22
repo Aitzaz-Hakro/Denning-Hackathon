@@ -28,6 +28,7 @@ The starter and these docs are preparation. Product features must be written dur
 | Backend | Supabase (Postgres, Auth, Storage) | supabase-js 2.118.0, @supabase/ssr 0.12.7 | Database, auth, and file storage in one service |
 | AI chat | OpenAI API, called from the server | Official `openai` SDK when the chat route starts | Key provided by Habib; required by the event |
 | Speech-to-text | Groq Whisper `whisper-large-v3`, called from the server | Groq API via `fetch` | Optional voice input; free tier; key in `GROQ_API_KEY` |
+| Motion | Lenis + Framer Motion (`motion`) + GSAP | lenis 1.3.27, motion 14.6.0, gsap 3.15.0, @gsap/react 2.1.2 | Landing pages only; CSS 3D is the default |
 | Package manager | npm | 11.x | Already configured |
 | Hosting | Vercel | — | Deploys Next.js with no setup |
 
@@ -47,6 +48,17 @@ The starter and these docs are preparation. Product features must be written dur
 12. **Submission is part of Done.** A public repo, a deployed URL, a complete README, and a 3-5 minute demo video are required, not optional.
 13. **Voice is optional.** Speech-to-text uses Groq `whisper-large-v3`; the transcript goes into the editable composer and is never auto-sent. The text input always remains available.
 
+## Motion and 3D
+
+Landing pages may use CSS 3D, Framer Motion (`motion`), and Lenis when the design calls for it. Read `docs/ui/designs/motion-3d.md` first.
+
+- Lenis is allowed on marketing/landing routes only, never the chat or dashboard.
+- CSS 3D is the default. React Three Fiber is allowed only for one real product object, with a static fallback.
+- Every animation respects `prefers-reduced-motion`.
+- Pre-approved for landing motion: `lenis`, `motion`, `gsap`, and `@gsap/react`.
+- Pre-approved for one real 3D object: `three`, `@react-three/fiber`, and `@react-three/drei`.
+- Any other motion or 3D package requires updating this document and getting approval.
+
 ## Banned
 
 - Prisma, Drizzle, or any other ORM
@@ -62,6 +74,8 @@ The starter and these docs are preparation. Product features must be written dur
 - OpenAI or Groq keys in code, in `NEXT_PUBLIC_*` variables, or committed to the repo
 - Local model hosting (Ollama, RunPod, Hugging Face Endpoints) during the event
 - A third AI provider; the approved pair is OpenAI for chat and Groq for speech-to-text
+- Lenis or WebGL inside the chat or dashboard
+- Scroll hijacking, 3D-only content, or animation without a reduced-motion fallback
 
 ## Dependencies
 

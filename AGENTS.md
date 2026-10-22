@@ -33,6 +33,7 @@ Hard rules:
 - AI calls run only in Server Actions or Route Handlers. `OPENAI_API_KEY` and `GROQ_API_KEY` stay server-side, never `NEXT_PUBLIC_*`.
 - Approved AI providers: OpenAI for chat and Groq `whisper-large-v3` for speech-to-text. No third provider or local model hosting.
 - Voice transcripts go into the composer and are never auto-sent.
+- Read `docs/ui/designs/motion-3d.md` before adding animation or 3D. Lenis is for marketing routes only; no WebGL in the chat; every animation needs a reduced-motion fallback.
 - Do not add dependencies without updating `docs/FOUNDATION.md` and getting approval.
 - Verify with `npm run lint`, `npx tsc --noEmit`, and `npm run build`.
 

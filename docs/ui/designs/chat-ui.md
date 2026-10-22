@@ -6,6 +6,8 @@ Status: preparation. Chat is **not** confirmed as the primary interface. Build t
 
 The conversation is the control surface. The artifact is the proof. Do not build a ChatGPT clone with our colors.
 
+No Lenis and no WebGL inside the chat thread. If the artifact pane needs a 3D object, use one small canvas with a static fallback and pause it when offscreen; see `docs/ui/designs/motion-3d.md`.
+
 ## Layout
 
 Desktop (1024px and up):

@@ -51,7 +51,7 @@ Provisional direction: **The printed annual** (taste skill `editorial-report`, s
 - Accent: lime only on the primary action and at most one headline word.
 - Shape: square corners, 1px line borders, no shadows at rest.
 - Composition: 42% soot panel on the auth screen; a quiet light app canvas with a soot top bar and a lime square mark.
-- Motion: none on the auth surface; a form should not animate. App screens use feedback only. If we build a landing page later, use the masked line reveal.
+- Motion: none on the auth surface; a form should not animate. App screens use feedback only. Landing pages may use CSS 3D + Framer Motion + Lenis, with one 3D moment and a reduced-motion fallback. See `docs/ui/designs/motion-3d.md`.
 - Rejected: the UI/UX Pro Max "AI-Native UI" palette (`#7C3AED` / `#A78BFA`) because it is the generic AI SaaS look we banned.
 
 Pending: user reference images may replace this direction. Adapt the palette and composition when they arrive; keep the accessibility and state rules.

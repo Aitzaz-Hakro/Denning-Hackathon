@@ -33,6 +33,7 @@ Read these before changing code:
 - [Design brief](.commandcode/design/brief.md) — visual direction and component rules
 - [Chat UI](docs/ui/designs/chat-ui.md) — chat composition, states, and interaction rules
 - [AI contract](docs/ui/designs/contract.md) — request, streaming, errors, and mock mode
+- [Motion and 3D](docs/ui/designs/motion-3d.md) — Lenis, Framer Motion, CSS 3D, and R3F rules
 - [Hackathon Brief](docs/HACKATHON-BRIEF.md) — fill this in on the day
 
 ## Setup
