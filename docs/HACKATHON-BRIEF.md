@@ -10,11 +10,31 @@ What problem are we solving? Who has it?
 
 Who is the primary user? Who is not?
 
+## Team and roles
+
+| Name | Role |
+| --- | --- |
+|  | AI lead |
+|  | App lead |
+|  | Ship lead |
+
 ## MVP features (max 3)
 
 1.
 2.
 3.
+
+## AI use
+
+- Provider and model: OpenAI / <model>
+- What the AI does:
+- Key env var: `OPENAI_API_KEY`
+- Fallback if the API fails:
+
+## Auth
+
+- Email + password: [ ]
+- Google OAuth: [ ]
 
 ## Demo path
 
@@ -47,6 +67,16 @@ Tables and columns to add:
 ## Seed data
 
 What demo data do we need?
+
+## Deployment and submission
+
+- Vercel live URL:
+- GitHub repository:
+- Demo video (Google Drive):
+- Drive links set to "Anyone with the link": [ ]
+- Links checked in incognito: [ ]
+- Google Form submitted: [ ]
+- Confirmation saved: [ ]
 
 ## Risks and open questions
 

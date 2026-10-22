@@ -25,20 +25,50 @@ The starter ships with one table.
 | `created_at` | `timestamptz` | Defaults to `now()` |
 | `updated_at` | `timestamptz` | Updated by trigger |
 
-The full SQL is in `supabase/migrations/0001_init.sql`.
+The full SQL is in `supabase/migrations/20261021190327_init.sql`.
 
 ## Migrations
 
-1. Create a new file: `supabase/migrations/0002_short_description.sql`.
+Every database change — table, column, index, policy, or trigger — ships as a date-stamped migration. The timestamp is UTC and must be the first part of the filename so Supabase applies migrations in order.
+
+### One-time setup
+
+Run once per machine:
+
+```powershell
+npx supabase init
+npx supabase login
+npx supabase link --project-ref <project-ref>
+```
+
+`init` creates `supabase/config.toml`; `link` connects this repo to your hosted project.
+
+### For every change
+
+1. Create the file with the Supabase CLI (it adds the timestamp automatically):
+
+   ```powershell
+   npx supabase migration new short_description
+   ```
+
+   This creates `supabase/migrations/<YYYYMMDDHHMMSS>_short_description.sql`.
+
 2. Write the table, indexes, RLS, and policies in the same file.
-3. Apply it with the Supabase CLI or the dashboard SQL editor.
-4. Regenerate types.
-5. Commit the migration.
+3. Push the migration to Supabase:
+
+   ```powershell
+   npx supabase db push
+   ```
+
+4. Regenerate types (see below).
+5. Commit the migration file.
 
 Rules:
 
-- Migrations are append-only. Never edit a migration that has been applied.
-- Never change the schema by clicking around the dashboard without writing the migration.
+- Filename format is always `<YYYYMMDDHHMMSS>_short_description.sql`.
+- Migrations are append-only. Never edit a migration that has been pushed.
+- The file in `supabase/migrations/` is the source of truth. The dashboard SQL editor is a fallback only, and the matching migration file must still exist.
+- Never change the schema by clicking around the dashboard and leaving no migration behind.
 - One migration = one logical change.
 
 ## RLS rules not to break

@@ -2,6 +2,21 @@
 
 Read this before writing code. If an AI tool suggests something that conflicts with this document, this document wins.
 
+## Event requirements (from the organizers)
+
+These are non-negotiable. A missing item means the project cannot be judged.
+
+- 5-hour build: Friday 23 October 2026, Auditorium, DITE, Hyderabad.
+- Working web app, deployed online with a link that opens for anyone.
+- Must use AI: an API, a pre-trained model, or your own model.
+- Public GitHub repository with a complete README.
+- Demo video, 3 to 5 minutes, on Google Drive with "Anyone with the link" access.
+- Code must be written during the 5 hours; no pushes after the deadline.
+- No API keys or passwords in code; use environment variables.
+- Team of up to 3.
+
+The starter and these docs are preparation. Product features must be written during the 5 hours. Full checklist: `docs/SUBMISSION.md`.
+
 ## Stack (LOCKED)
 
 | Layer | Choice | Installed version | Why |
@@ -11,31 +26,40 @@ Read this before writing code. If an AI tool suggests something that conflicts w
 | Language | TypeScript (strict) | 5.x | Catches errors before the demo |
 | Styling | Tailwind CSS | 4.x | Fast layout without extra CSS files |
 | Backend | Supabase (Postgres, Auth, Storage) | supabase-js 2.118.0, @supabase/ssr 0.12.7 | Database, auth, and file storage in one service |
+| AI | OpenAI API, called from the server | Official `openai` SDK when the AI slice starts | Chosen provider; required by the event |
 | Package manager | npm | 11.x | Already configured |
 | Hosting | Vercel | — | Deploys Next.js with no setup |
 
 ## Locked decisions
 
 1. **App Router only.** Every page lives in `src/app`. Do not create `pages/`.
-2. **Supabase is the only backend.** No separate Express/Nest server, no Firebase.
-3. **No ORM.** Query with `supabase-js`. Schema changes are SQL migrations.
-4. **Email + password auth only.** No NextAuth, Clerk, or OAuth providers.
+2. **Supabase is the only application backend.** The AI provider is an external API, not a second backend. No separate Express/Nest server, no Firebase.
+3. **No ORM.** Query with `supabase-js`. Every schema change is a date-stamped migration in `supabase/migrations/` and is pushed to Supabase.
+4. **Supabase Auth only: email + password and Google OAuth.** No NextAuth, Clerk, or another auth library.
 5. **Tailwind only.** No component library, CSS-in-JS, or second styling system. Copy-pasted Tailwind snippets are fine.
 6. **Server-first data fetching.** Server Components and Server Actions by default. No React Query, SWR, Redux, or Zustand.
 7. **npm + Vercel.** Do not switch package managers or hosts during the event.
 8. **TypeScript strict, no `any`.** If `any` is unavoidable, leave a comment explaining why.
 9. **Cache Components off.** `cacheComponents` stays out of `next.config.ts`; it forces Suspense boundaries around dynamic Supabase data and slows the event down.
+10. **AI is required, Option A.** The app calls OpenAI from server code, with the app hosted on Vercel. Do not host models or run local inference during the event.
+11. **AI keys stay server-only.** The key lives in `OPENAI_API_KEY`; only Server Actions and Route Handlers call OpenAI. Never use a `NEXT_PUBLIC_*` variable for it.
+12. **Submission is part of Done.** A public repo, a deployed URL, a complete README, and a 3-5 minute demo video are required, not optional.
 
 ## Banned
 
 - Prisma, Drizzle, or any other ORM
-- NextAuth, Clerk, Firebase Auth, OAuth providers
+- NextAuth, Clerk, Firebase Auth, or any auth SDK other than Supabase
 - Redux, Zustand, React Query, SWR
 - CSS-in-JS (styled-components, Emotion)
 - Pages Router
 - UI kits or component libraries
 - Supabase service-role key in any `NEXT_PUBLIC_*` variable or client component
 - Editing `auth.users` directly
+- Editing the schema in the Supabase dashboard without a matching migration file
+- Calling OpenAI directly from a Client Component
+- OpenAI keys in code, in `NEXT_PUBLIC_*` variables, or committed to the repo
+- Local model hosting (Ollama, RunPod, Hugging Face Endpoints) during the event
+- A second AI provider or SDK during the event
 
 ## Dependencies
 
@@ -45,7 +69,9 @@ Only install what is already in `package.json`. Adding anything else requires:
 2. Adding it to this document with one line explaining why.
 3. Installing it.
 
-AI agents must ask before installing anything.
+Pre-approved for the AI slice: `openai` (the official SDK). Install it when the AI feature starts.
+
+AI agents must ask before installing anything else.
 
 ## Change protocol
 
@@ -73,3 +99,4 @@ A locked decision changes only by editing this document. If an AI tool wants to 
 - Server Components unless interactivity is required.
 - RLS policies for every table, tested with two accounts.
 - Loading, error, and empty states for every data view.
+- The AI feature works from the deployed URL, not only locally.
