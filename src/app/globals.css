@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --soot: #0f0f0f;
+  --soot-raised: #1a1a1a;
+  --paper: #ffffff;
+  --paper-muted: #f5f5f5;
+  --ink: #0f0f0f;
+  --muted: #5f5f5a;
+  --line: #deddd6;
+  --lime: #dafa9c;
+  --lime-strong: #c8f07f;
+  --negative: #b42318;
+  --font-erode: "Erode", Georgia, "Times New Roman", serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-soot: var(--soot);
+  --color-soot-raised: var(--soot-raised);
+  --color-paper: var(--paper);
+  --color-paper-muted: var(--paper-muted);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-lime: var(--lime);
+  --color-lime-strong: var(--lime-strong);
+  --color-negative: var(--negative);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-erode);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper-muted);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--soot);
 }
